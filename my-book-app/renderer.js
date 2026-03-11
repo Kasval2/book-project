@@ -1,64 +1,85 @@
 const shelfContainer = document.getElementById('main-shelf');
 const reloadBtn = document.getElementById('reload-btn');
 
-// Настрой это позже:
-const SERVER_URL = 'https://kasval2.github.io/book-project/my-book-app/books.json';
+// Элементы читалки
+const reader = document.getElementById('reader-overlay');
+const closeReader = document.getElementById('close-reader');
+const pageContent = document.getElementById('page-content');
+const pageNumText = document.getElementById('page-number');
+const prevBtn = document.getElementById('prev-page');
+const nextBtn = document.getElementById('next-page');
+
+let currentPage = 1;
+const totalPages = 16;
 
 async function loadBooks() {
     try {
-        const response = await fetch(SERVER_URL);
-        if (!response.ok) throw new Error('Сервер недоступен');
+        const response = await fetch('https://kasval2.github.io/book-project/my-book-app/books.json');
         const books = await response.json();
         renderLibrary(books);
-    } catch (error) {
-        console.error('Ошибка:', error);
-        shelfContainer.innerHTML = `<div class="loading-status">Ошибка: ${error.message}</div>`;
-    }
+    } catch (e) { console.error(e); }
 }
 
 function renderLibrary(books) {
-    shelfContainer.innerHTML = ''; 
-    
-    let currentShelf = createShelf();
+    shelfContainer.innerHTML = '';
+    let currentShelf = document.createElement('div');
+    currentShelf.className = 'shelf';
     shelfContainer.appendChild(currentShelf);
 
     books.forEach((book, index) => {
-        // По 4 книги на одну полку
         if (index > 0 && index % 4 === 0) {
-            currentShelf = createShelf();
+            currentShelf = document.createElement('div');
+            currentShelf.className = 'shelf';
             shelfContainer.appendChild(currentShelf);
         }
 
-        const bookElement = document.createElement('div');
-        bookElement.className = 'book';
-        bookElement.innerHTML = `
-            <div class="book-cover" style="background: ${book.color || '#800000'}">
-                <strong>${book.title}</strong><br><small>${book.author}</small>
+        const bookDiv = document.createElement('div');
+        bookDiv.className = 'book';
+        bookDiv.innerHTML = `
+            <div class="book-cover" style="background: ${book.color}">
+                <strong>${book.title}</strong>
             </div>
             <div class="book-reflection"></div>
         `;
-        currentShelf.appendChild(bookElement);
+        
+        // Клик по книге открывает читалку
+        bookDiv.onclick = () => openBook(book.title);
+        currentShelf.appendChild(bookDiv);
     });
 }
 
-function createShelf() {
-    const shelf = document.createElement('div');
-    shelf.className = 'shelf';
-    return shelf;
+function openBook(title) {
+    document.getElementById('reader-book-title').innerText = title;
+    currentPage = 1;
+    updatePage();
+    reader.classList.remove('reader-hidden');
+    reader.classList.add('reader-visible');
 }
 
-reloadBtn.addEventListener('click', () => {
-    // Анимация вращения кнопки
-    reloadBtn.style.transition = 'transform 0.6s ease';
-    reloadBtn.style.transform = 'rotate(360deg)';
-    
-    loadBooks();
+function updatePage() {
+    pageContent.innerText = `test${currentPage}`;
+    pageNumText.innerText = `Страница ${currentPage} из ${totalPages}`;
+}
 
-    setTimeout(() => {
-        reloadBtn.style.transition = 'none';
-        reloadBtn.style.transform = 'rotate(0deg)';
-    }, 600);
-});
+// Кнопки управления
+closeReader.onclick = () => {
+    reader.classList.remove('reader-visible');
+    reader.classList.add('reader-hidden');
+};
 
-// Запуск при старте приложения
+nextBtn.onclick = () => {
+    if (currentPage < totalPages) {
+        currentPage++;
+        updatePage();
+    }
+};
+
+prevBtn.onclick = () => {
+    if (currentPage > 1) {
+        currentPage--;
+        updatePage();
+    }
+};
+
+reloadBtn.onclick = () => loadBooks();
 loadBooks();
