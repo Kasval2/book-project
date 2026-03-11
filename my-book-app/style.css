@@ -8,7 +8,7 @@ body {
     user-select: none;
 }
 
-/* ТУЛБАР iOS (Верхняя панель) */
+/* ТУЛБАР iOS */
 .ios-toolbar {
     height: 44px;
     background: linear-gradient(to bottom, #b2b2b2 0%, #8e8e8e 50%, #6d6d6d 51%, #6d6d6d 100%);
@@ -137,39 +137,40 @@ body {
 .reader-hidden { transform: translateY(100%); }
 .reader-visible { transform: translateY(0); }
 
-/* Контент читалки (Центрируем страницу) */
+/* Контент читалки - Увеличили область */
 .reader-content {
     flex: 1;
     display: flex;
-    justify-content: center; /* Центр по горизонтали */
-    align-items: flex-start; /* Начинаем сверху */
-    padding: 60px 20px 20px 20px; /* Отступ сверху для тулбара */
-    overflow-y: auto;
+    justify-content: center;
+    align-items: center; /* Теперь лист строго по центру */
+    padding: 20px; 
+    overflow: hidden;
 }
 
 .page {
-    width: 100%;
-    max-width: 600px;
+    width: 95%;
+    max-width: 850px; /* Сделали шире */
+    height: 90%; /* Сделали выше */
     background: white;
-    box-shadow: 0 0 15px rgba(0,0,0,0.2);
-    padding: 40px;
-    font-size: 18px;
+    box-shadow: 0 0 30px rgba(0,0,0,0.3);
+    padding: 60px; /* Больше внутренних отступов для текста */
+    font-size: 20px;
     line-height: 1.6;
     color: #222;
-    border-radius: 2px;
+    border-radius: 4px;
     white-space: pre-wrap;
-    min-height: 70vh;
     box-sizing: border-box;
+    overflow-y: auto;
 }
 
-/* НИЖНЯЯ ПАНЕЛЬ (Футер читалки) */
+/* НИЖНЯЯ ПАНЕЛЬ */
 .reader-footer {
     height: 44px;
     background: linear-gradient(to bottom, #f2f2f2, #d1d1d1);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 15px;
+    padding: 0 20px;
     border-top: 1px solid #999;
     box-sizing: border-box;
 }
@@ -178,7 +179,6 @@ body {
     font-size: 12px; 
     font-weight: bold; 
     color: #444; 
-    flex-grow: 1;
     text-align: center;
 }
 
