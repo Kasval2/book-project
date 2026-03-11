@@ -9,23 +9,25 @@
 
     <header class="ios-toolbar">
         <div class="toolbar-left">
-            <button class="ios-btn">Коллекции</button>
+            <!-- Добавили id="collections-btn" -->
+            <button class="ios-btn" id="collections-btn">Коллекции</button>
             <button class="ios-btn" id="reload-btn" title="Обновить библиотеку">⟳</button>
         </div>
         <h1 class="ios-title">Книги</h1>
-        <button class="ios-btn btn-edit">Правка</button>
+        <!-- Добавили id="edit-btn" -->
+        <button class="ios-btn btn-edit" id="edit-btn">Нравится</button>
     </header>
 
     <main class="bookshelf-container" id="main-shelf">
         <div class="loading-status">Загрузка библиотеки...</div>
     </main>
 
-    <!-- Окно читалки теперь ДО скрипта -->
+    <!-- Окно читалки -->
     <div id="reader-overlay" class="reader-hidden">
         <header class="ios-toolbar">
             <button class="ios-btn" id="close-reader">Библиотека</button>
             <h1 class="ios-title" id="reader-book-title">Книга</h1>
-            <div style="width: 60px;"></div>
+            <div style="width: 80px;"></div>
         </header>
         
         <div class="reader-content">
@@ -39,7 +41,6 @@
         </footer>
     </div>
 
-    <!-- Скрипт в самом конце -->
     <script src="renderer.js"></script>
 </body>
 </html>
