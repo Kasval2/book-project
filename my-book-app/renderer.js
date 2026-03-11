@@ -14,14 +14,21 @@ const totalPages = 16;
 
 async function loadBooks() {
     try {
-        const response = await fetch('https://kasval2.github.io/book-project/my-book-app/books.json');
+        // Пробуем загрузить локальный файл. Если нужно из сети - вставь полную ссылку.
+        const response = await fetch('books.json'); 
+        if (!response.ok) throw new Error('Файл books.json не найден');
         const books = await response.json();
         renderLibrary(books);
-    } catch (e) { console.error(e); }
+    } catch (e) { 
+        console.error(e);
+        shelfContainer.innerHTML = `<div class="loading-status" style="color:red">Ошибка загрузки: ${e.message}</div>`;
+    }
 }
 
 function renderLibrary(books) {
+    if (!shelfContainer) return;
     shelfContainer.innerHTML = '';
+    
     let currentShelf = document.createElement('div');
     currentShelf.className = 'shelf';
     shelfContainer.appendChild(currentShelf);
@@ -36,13 +43,12 @@ function renderLibrary(books) {
         const bookDiv = document.createElement('div');
         bookDiv.className = 'book';
         bookDiv.innerHTML = `
-            <div class="book-cover" style="background: ${book.color}">
+            <div class="book-cover" style="background: ${book.color || '#800000'}">
                 <strong>${book.title}</strong>
             </div>
             <div class="book-reflection"></div>
         `;
         
-        // Клик по книге открывает читалку
         bookDiv.onclick = () => openBook(book.title);
         currentShelf.appendChild(bookDiv);
     });
@@ -61,25 +67,35 @@ function updatePage() {
     pageNumText.innerText = `Страница ${currentPage} из ${totalPages}`;
 }
 
-// Кнопки управления
-closeReader.onclick = () => {
-    reader.classList.remove('reader-visible');
-    reader.classList.add('reader-hidden');
-};
+// Кнопки управления (проверяем наличие элементов, чтобы не было ошибок)
+if (closeReader) {
+    closeReader.onclick = () => {
+        reader.classList.remove('reader-visible');
+        reader.classList.add('reader-hidden');
+    };
+}
 
-nextBtn.onclick = () => {
-    if (currentPage < totalPages) {
-        currentPage++;
-        updatePage();
-    }
-};
+if (nextBtn) {
+    nextBtn.onclick = () => {
+        if (currentPage < totalPages) {
+            currentPage++;
+            updatePage();
+        }
+    };
+}
 
-prevBtn.onclick = () => {
-    if (currentPage > 1) {
-        currentPage--;
-        updatePage();
-    }
-};
+if (prevBtn) {
+    prevBtn.onclick = () => {
+        if (currentPage > 1) {
+            currentPage--;
+            updatePage();
+        }
+    };
+}
 
-reloadBtn.onclick = () => loadBooks();
+if (reloadBtn) {
+    reloadBtn.onclick = () => loadBooks();
+}
+
+// Запуск
 loadBooks();
