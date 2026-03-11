@@ -22,11 +22,5 @@
         "author": "Arthur Clarke",
         "color": "linear-gradient(135deg, #4b0082, #000000)",
         "id": 4
-    },
-    {
-        "title": "Space Odyssey",
-        "author": "Arthur Clarke", 2
-        "color": "linear-gradient(135deg, #4b0043, #000000)",
-        "id": 5
     }
 ]
