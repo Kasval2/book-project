@@ -1,30 +1,43 @@
 const shelfContainer = document.getElementById('main-shelf');
-const likeBtn = document.getElementById('edit-btn'); // Кнопка "Нравится"
-const collectionsBtn = document.getElementById('collections-btn'); // Кнопка "Коллекции"
+const reloadBtn = document.getElementById('reload-btn');
+const likeBtn = document.getElementById('edit-btn'); 
+const collectionsBtn = document.getElementById('collections-btn'); 
 
 let allBooks = [];
 let isLikeMode = false;
 let currentFilter = 'all'; // 'all' или 'favorites'
+let currentPage = 1;
+let currentBookData = null;
 
 // Загрузка книг
 async function loadBooks() {
     try {
+        // Показываем статус загрузки
+        shelfContainer.innerHTML = '<div class="loading-status">Загрузка библиотеки...</div>';
+        
         const response = await fetch('books.json');
-        allBooks = await response.json();
-        // Добавляем свойство favorite, если его нет
-        allBooks = allBooks.map(b => ({ ...b, favorite: b.favorite || false }));
+        if (!response.ok) throw new Error('Не удалось загрузить books.json');
+        
+        const data = await response.json();
+        
+        // Перезаписываем массив новыми данными и добавляем поле favorite
+        allBooks = data.map(b => ({ ...b, favorite: b.favorite || false }));
+        
         renderLibrary();
     } catch (e) {
         console.error("Ошибка загрузки:", e);
+        shelfContainer.innerHTML = `<div class="loading-status" style="color:red">Ошибка: ${e.message}</div>`;
     }
 }
 
 // Рендер библиотеки
 function renderLibrary() {
+    if (!shelfContainer) return;
     shelfContainer.innerHTML = '';
     
-    // Сортируем: если фильтр "favorites", то любимые в начале
     let displayBooks = [...allBooks];
+    
+    // Если включен фильтр избранного
     if (currentFilter === 'favorites') {
         displayBooks.sort((a, b) => b.favorite - a.favorite);
     }
@@ -34,6 +47,7 @@ function renderLibrary() {
     shelfContainer.appendChild(currentShelf);
 
     displayBooks.forEach((book, index) => {
+        // Каждые 4 книги создаем новую полку
         if (index > 0 && index % 4 === 0) {
             currentShelf = document.createElement('div');
             currentShelf.className = 'shelf';
@@ -52,11 +66,10 @@ function renderLibrary() {
 
         bookDiv.onclick = () => {
             if (isLikeMode) {
-                // Переключаем статус "любимая"
                 book.favorite = !book.favorite;
-                // Находим эту же книгу в основном массиве и обновляем
+                // Синхронизируем статус в основном массиве
                 const mainBook = allBooks.find(b => b.id === book.id);
-                mainBook.favorite = book.favorite;
+                if (mainBook) mainBook.favorite = book.favorite;
                 renderLibrary();
             } else {
                 openBook(book.id);
@@ -67,23 +80,23 @@ function renderLibrary() {
     });
 }
 
-// Кнопка "Нравится" (бывшая "Правка")
+// Кнопка "Нравится"
 if (likeBtn) {
-    likeBtn.innerText = "Нравится";
     likeBtn.onclick = () => {
         isLikeMode = !isLikeMode;
         likeBtn.innerText = isLikeMode ? "Готово" : "Нравится";
-        likeBtn.style.background = isLikeMode ? "linear-gradient(to bottom, #ff5e5e, #ff3b30)" : "";
+        // Визуальный акцент на кнопке в режиме лайков
+        likeBtn.style.textShadow = isLikeMode ? "0 0 5px white" : "";
         shelfContainer.classList.toggle('like-mode');
     };
 }
 
-// Кнопка "Коллекции"
+// Кнопка "Коллекции" (Фильтр)
 if (collectionsBtn) {
     collectionsBtn.onclick = () => {
         if (currentFilter === 'all') {
             currentFilter = 'favorites';
-            collectionsBtn.innerText = "❤ Понравились";
+            collectionsBtn.innerText = "⭐ Избранное";
         } else {
             currentFilter = 'all';
             collectionsBtn.innerText = "Коллекции";
@@ -92,39 +105,63 @@ if (collectionsBtn) {
     };
 }
 
-// Остальные функции (openBook, updatePage и т.д.) остаются такими же, как были
+// ИСПРАВЛЕННАЯ Кнопка перезагрузки
+if (reloadBtn) {
+    reloadBtn.onclick = () => {
+        // Сбрасываем режимы перед перезагрузкой
+        isLikeMode = false;
+        currentFilter = 'all';
+        if (likeBtn) {
+            likeBtn.innerText = "Нравится";
+            likeBtn.style.textShadow = "";
+        }
+        if (collectionsBtn) collectionsBtn.innerText = "Коллекции";
+        shelfContainer.classList.remove('like-mode');
+        
+        // Грузим данные заново
+        loadBooks();
+    };
+}
+
+// Логика читалки
 function openBook(bookId) {
     const book = allBooks.find(b => b.id === bookId);
     if (book) {
+        currentBookData = book;
         document.getElementById('reader-book-title').innerText = book.title;
         currentPage = 1;
-        currentBookData = book;
         updatePage();
         document.getElementById('reader-overlay').classList.replace('reader-hidden', 'reader-visible');
     }
 }
 
-let currentPage = 1;
-let currentBookData = null;
-
 function updatePage() {
     const pageContent = document.getElementById('page-content');
     const pageNumText = document.getElementById('page-number');
-    if (!currentBookData) return;
-    pageContent.innerText = currentBookData.pages[currentPage - 1] || "Конец";
+    if (!currentBookData || !currentBookData.pages) return;
+    
+    pageContent.innerText = currentBookData.pages[currentPage - 1] || "Конец книги";
     pageNumText.innerText = `Страница ${currentPage} из ${currentBookData.pages.length}`;
 }
 
+// Кнопки управления читалкой
 document.getElementById('close-reader').onclick = () => {
     document.getElementById('reader-overlay').classList.replace('reader-visible', 'reader-hidden');
 };
 
 document.getElementById('next-page').onclick = () => {
-    if (currentPage < currentBookData.pages.length) { currentPage++; updatePage(); }
+    if (currentBookData && currentPage < currentBookData.pages.length) {
+        currentPage++;
+        updatePage();
+    }
 };
 
 document.getElementById('prev-page').onclick = () => {
-    if (currentPage > 1) { currentPage--; updatePage(); }
+    if (currentPage > 1) {
+        currentPage--;
+        updatePage();
+    }
 };
 
+// Первый запуск
 loadBooks();
