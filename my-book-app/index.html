@@ -24,21 +24,20 @@
     <script src="renderer.js"></script>
     <!-- Окно читалки -->
 <div id="reader-overlay" class="reader-hidden">
-    <header class="ios-toolbar reader-header">
+    <header class="ios-toolbar">
         <button class="ios-btn" id="close-reader">Библиотека</button>
         <h1 class="ios-title" id="reader-book-title">Книга</h1>
-        <div style="width: 60px;"></div> <!-- Для симметрии -->
     </header>
     
     <div class="reader-content">
-        <div class="page" id="page-content">
-            <!-- Тут будет текст страницы -->
-        </div>
+        <!-- ОШИБКА БЫЛА ТУТ: проверь этот ID -->
+        <div class="page" id="page-content"></div>
     </div>
 
     <footer class="reader-footer">
         <button class="ios-btn" id="prev-page">◀</button>
-        <span id="page-number">Страница 1 из 16</span>
+        <!-- И ЭТОТ ID -->
+        <span id="page-number"></span>
         <button class="ios-btn" id="next-page">▶</button>
     </footer>
 </div>
