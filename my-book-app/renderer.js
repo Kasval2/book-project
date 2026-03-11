@@ -2,7 +2,7 @@ const shelfContainer = document.getElementById('main-shelf');
 const reloadBtn = document.getElementById('reload-btn');
 
 // Настрой это позже:
-const SERVER_URL = 'books.json'; 
+const SERVER_URL = 'https://kasval2.github.io/book-project/my-book-app/books.json';
 
 async function loadBooks() {
     try {
