@@ -17,16 +17,11 @@ body {
     align-items: center;
     padding: 0 10px;
     box-shadow: 0 1px 4px rgba(0,0,0,0.6);
-    position: fixed; /* Фиксируем наверху */
+    position: fixed; 
     top: 0;
     left: 0;
     right: 0;
     z-index: 1000;
-}
-
-.toolbar-left {
-    display: flex;
-    gap: 8px;
 }
 
 .ios-title {
@@ -50,22 +45,17 @@ body {
     cursor: pointer;
 }
 
-.ios-btn:active {
-    background: #222;
-}
-
 /* КНИЖНЫЙ ШКАФ */
 .bookshelf-container {
     background: #5d4037 url('https://www.transparenttextures.com/patterns/wood-pattern.png');
     min-height: 100vh;
-    padding-top: 64px; /* Отступ, чтобы полки не заезжали под шапку */
+    padding-top: 64px;
     box-sizing: border-box;
 }
 
 .shelf {
     width: 100%;
     height: 140px;
-    /* Текстура самой полки (деревянная планка) */
     background: linear-gradient(to bottom, #a1887f 0%, #5d4037 100%);
     border-bottom: 14px solid #3e2723;
     display: flex;
@@ -77,7 +67,6 @@ body {
     box-shadow: 0 15px 20px rgba(0,0,0,0.5);
 }
 
-/* КНИГИ */
 .book {
     width: 85px;
     height: 110px;
@@ -87,10 +76,6 @@ body {
     z-index: 10;
 }
 
-.book:hover {
-    transform: scale(1.05);
-}
-
 .book-cover {
     width: 100%;
     height: 100%;
@@ -98,107 +83,64 @@ body {
     box-shadow: 4px 2px 8px rgba(0,0,0,0.6);
     color: white;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
-    font-size: 11px;
-    font-weight: bold;
-    padding: 8px;
+    font-size: 10px;
+    padding: 5px;
     box-sizing: border-box;
     border-left: 3px solid rgba(0,0,0,0.3);
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
 }
 
-.book-reflection {
-    position: absolute;
-    top: 100%;
-    left: 0; right: 0;
-    height: 25px;
-    background: linear-gradient(to bottom, rgba(255,255,255,0.1), transparent);
-    opacity: 0.3;
-    pointer-events: none;
-}
-
-/* ОКНО ЧИТАЛКИ */
+/* ЧИТАЛКА */
 #reader-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: #fdfdfd;
+    background: #e2e2e2;
     z-index: 9999;
     display: flex;
     flex-direction: column;
-    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: transform 0.4s ease;
 }
 
-.reader-hidden { 
-    transform: translateY(100%); 
-    pointer-events: none; 
-}
-
-.reader-visible { 
-    transform: translateY(0); 
-    pointer-events: all; 
-}
+.reader-hidden { transform: translateY(100%); }
+.reader-visible { transform: translateY(0); }
 
 .reader-content {
     flex: 1;
     display: flex;
     justify-content: center;
-    align-items: center;
     padding: 20px;
-    background: #e0e0e0; /* Фон за книгой */
+    overflow: hidden;
 }
 
 .page {
-    width: 90%;
-    max-width: 600px;
-    height: 85%;
+    width: 95%;
+    max-width: 700px;
     background: white;
-    box-shadow: 0 0 20px rgba(0,0,0,0.2);
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
     padding: 40px;
-    font-size: 22px;
-    line-height: 1.5;
-    color: #333;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 4px;
-    position: relative;
-}
-
-/* Декоративная полоска посередине (как сгиб книги) */
-.page::before {
-    content: "";
-    position: absolute;
-    left: 0; top: 0; bottom: 0;
-    width: 10px;
-    background: linear-gradient(to right, rgba(0,0,0,0.05), transparent);
+    font-size: 18px;
+    line-height: 1.6;
+    color: #222;
+    border-radius: 2px;
+    /* Ключевое изменение: корректная работа с текстом */
+    white-space: pre-wrap; 
+    text-align: left;
+    overflow-y: auto;
 }
 
 .reader-footer {
-    height: 50px;
+    height: 44px;
     background: linear-gradient(to bottom, #f2f2f2, #d1d1d1);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 20px;
-    border-top: 1px solid #ababab;
+    padding: 0 15px;
+    border-top: 1px solid #999;
 }
 
-#page-number { 
-    font-size: 13px; 
-    color: #555; 
-    text-shadow: 0 1px 0 white; 
-    font-weight: bold;
-}
-
-.loading-status {
-    color: rgba(255,255,255,0.7);
-    text-align: center;
-    padding-top: 100px;
-    font-size: 18px;
-}
+#page-number { font-size: 12px; font-weight: bold; color: #444; }
