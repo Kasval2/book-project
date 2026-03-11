@@ -8,7 +8,7 @@ body {
     user-select: none;
 }
 
-/* ТУЛБАР iOS */
+/* ТУЛБАР iOS (Верхняя панель) */
 .ios-toolbar {
     height: 44px;
     background: linear-gradient(to bottom, #b2b2b2 0%, #8e8e8e 50%, #6d6d6d 51%, #6d6d6d 100%);
@@ -32,6 +32,9 @@ body {
     margin: 0;
     flex-grow: 1;
     text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .ios-btn {
@@ -44,7 +47,7 @@ body {
     font-weight: bold;
     box-shadow: inset 0 1px 0 rgba(255,255,255,0.2);
     cursor: pointer;
-    min-width: 80px;
+    min-width: 60px;
 }
 
 /* КНИЖНЫЙ ШКАФ */
@@ -94,13 +97,11 @@ body {
     border-left: 3px solid rgba(0,0,0,0.3);
 }
 
-/* СЕРДЕЧКО */
 .heart-badge {
     position: absolute;
     top: -5px;
     right: -5px;
     font-size: 18px;
-    filter: drop-shadow(0 1px 2px rgba(0,0,0,0.5));
     z-index: 25;
     display: none;
 }
@@ -109,7 +110,6 @@ body {
     display: block;
 }
 
-/* ЭФФЕКТ ДРОЖАНИЯ */
 @keyframes jiggle {
     0% { transform: rotate(-1deg); }
     50% { transform: rotate(1.5deg); }
@@ -120,7 +120,7 @@ body {
     animation: jiggle 0.25s infinite;
 }
 
-/* ЧИТАЛКА */
+/* ОКНО ЧИТАЛКИ */
 #reader-overlay {
     position: fixed;
     top: 0;
@@ -133,17 +133,57 @@ body {
     flex-direction: column;
     transition: transform 0.4s ease;
 }
+
 .reader-hidden { transform: translateY(100%); }
 .reader-visible { transform: translateY(0); }
 
-.page {
-    width: 90%;
-    max-width: 600px;
-    margin: 20px auto;
-    background: white;
-    padding: 30px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.2);
-    white-space: pre-wrap;
+/* Контент читалки (Центрируем страницу) */
+.reader-content {
     flex: 1;
+    display: flex;
+    justify-content: center; /* Центр по горизонтали */
+    align-items: flex-start; /* Начинаем сверху */
+    padding: 60px 20px 20px 20px; /* Отступ сверху для тулбара */
     overflow-y: auto;
+}
+
+.page {
+    width: 100%;
+    max-width: 600px;
+    background: white;
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    padding: 40px;
+    font-size: 18px;
+    line-height: 1.6;
+    color: #222;
+    border-radius: 2px;
+    white-space: pre-wrap;
+    min-height: 70vh;
+    box-sizing: border-box;
+}
+
+/* НИЖНЯЯ ПАНЕЛЬ (Футер читалки) */
+.reader-footer {
+    height: 44px;
+    background: linear-gradient(to bottom, #f2f2f2, #d1d1d1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 15px;
+    border-top: 1px solid #999;
+    box-sizing: border-box;
+}
+
+#page-number { 
+    font-size: 12px; 
+    font-weight: bold; 
+    color: #444; 
+    flex-grow: 1;
+    text-align: center;
+}
+
+.loading-status {
+    color: white;
+    text-align: center;
+    padding-top: 100px;
 }
