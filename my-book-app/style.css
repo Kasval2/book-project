@@ -140,27 +140,33 @@ body {
 }
 
 #main-shelf {
-    margin-top: 60px; /* Высота шапки */
-    padding-bottom: 50px;
+    position: relative; /* Важно для работы отступов */
+    padding-top: 70px;   /* Опускаем полки ниже шапки */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 #reader-overlay {
     position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: #e5e5e5;
-    z-index: 100;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #fdfdfd;
+    z-index: 9999; /* Максимальный приоритет */
     display: flex;
     flex-direction: column;
-    transition: transform 0.4s ease-in-out;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); /* Более плавный выезд */
 }
 
 .reader-hidden { 
-    transform: translateY(100%); 
+    transform: translateY(100%) !important; 
     pointer-events: none; /* Это позволит кликать "сквозь" скрытую читалку */
 }
 
 .reader-visible { 
-    transform: translateY(0); 
+    transform: translateY(0) !important; 
     pointer-events: all; /* Включаем клики обратно, когда читаем */
 }
 
