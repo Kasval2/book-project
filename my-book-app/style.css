@@ -1,0 +1,134 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    background-color: #1a1a1a;
+    overflow-x: hidden;
+}
+
+/* Тулбар iOS 6 */
+.ios-toolbar {
+    height: 44px;
+    background: linear-gradient(to bottom, #b2b2b2 0%, #8e8e8e 50%, #6d6d6d 51%, #6d6d6d 100%);
+    border-bottom: 1px solid #333;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.6);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.toolbar-left {
+    display: flex;
+    gap: 8px;
+}
+
+.ios-title {
+    color: white;
+    font-size: 18px;
+    text-shadow: 0 -1px 0 rgba(0,0,0,0.8);
+    margin: 0;
+}
+
+.ios-btn {
+    background: linear-gradient(to bottom, #747474 0%, #4c4c4c 50%, #2c2c2c 51%, #2c2c2c 100%);
+    border: 1px solid #1a1a1a;
+    border-radius: 5px;
+    color: white;
+    padding: 4px 12px;
+    font-size: 12px;
+    font-weight: bold;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.2);
+    cursor: pointer;
+}
+
+.ios-btn:active {
+    background: #222;
+}
+
+/* Шкаф */
+.bookshelf-container {
+    background: #5d4037 url('https://www.transparenttextures.com/patterns/wood-pattern.png');
+    min-height: 100vh;
+    padding: 20px 0;
+}
+
+.shelf {
+    height: 140px;
+    border-bottom: 14px solid #3e2723;
+    background: linear-gradient(to bottom, transparent 60%, rgba(0,0,0,0.3) 100%);
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+    padding: 0 30px;
+    margin-bottom: 30px;
+    gap: 25px;
+    position: relative;
+    box-shadow: inset 0 -10px 15px rgba(0,0,0,0.4);
+}
+
+.shelf::after {
+    content: "";
+    position: absolute;
+    bottom: -18px;
+    left: 0; right: 0;
+    height: 4px;
+    background: rgba(0,0,0,0.5);
+    filter: blur(3px);
+}
+
+/* Книги */
+.book {
+    width: 85px;
+    height: 110px;
+    position: relative;
+    margin-bottom: 2px;
+}
+
+.book-cover {
+    width: 100%;
+    height: 100%;
+    border-radius: 2px 4px 4px 2px;
+    box-shadow: 4px 2px 8px rgba(0,0,0,0.6);
+    color: white;
+    
+    /* ИСПРАВЛЕНИЕ ТУТ */
+    display: flex;
+    flex-direction: column;    /* Текст в колонку */
+    justify-content: center;   /* Центровка по вертикали */
+    align-items: center;       /* Центровка по горизонтали */
+    
+    text-align: center;
+    font-size: 11px;
+    padding: 8px;
+    box-sizing: border-box;
+    border-left: 3px solid rgba(0,0,0,0.3);
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+}
+
+/* Чтобы автор был чуть бледнее и с отступом */
+.book-cover small {
+    margin-top: 5px;
+    opacity: 0.8;
+    font-size: 9px;
+}
+
+.book-reflection {
+    position: absolute;
+    top: 100%;
+    left: 0; right: 0;
+    height: 30px;
+    background: linear-gradient(to bottom, rgba(255,255,255,0.15), transparent);
+    transform: scaleY(-1);
+    opacity: 0.4;
+    filter: blur(1px);
+}
+
+.loading-status {
+    color: rgba(255,255,255,0.5);
+    text-align: center;
+    margin-top: 50px;
+}

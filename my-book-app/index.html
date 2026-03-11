@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>iBooks Classic</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="ios-toolbar">
+        <div class="toolbar-left">
+            <button class="ios-btn">Коллекции</button>
+            <button class="ios-btn" id="reload-btn" title="Обновить библиотеку">⟳</button>
+        </div>
+        <h1 class="ios-title">Книги</h1>
+        <button class="ios-btn btn-edit">Правка</button>
+    </header>
+
+    <!-- Сюда JavaScript будет добавлять полки с книгами -->
+    <main class="bookshelf-container" id="main-shelf">
+        <div class="loading-status">Загрузка библиотеки...</div>
+    </main>
+
+    <script src="renderer.js"></script>
+</body>
+</html>

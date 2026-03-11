@@ -1,0 +1,26 @@
+[
+    {
+        "title": "Мастер и Маргарита",
+        "author": "М. Булгаков",
+        "color": "linear-gradient(135deg, #800000, #330000)",
+        "id": 1
+    },
+    {
+        "title": "Brave New World",
+        "author": "Aldous Huxley",
+        "color": "linear-gradient(135deg, #005f5f, #002222)",
+        "id": 2
+    },
+    {
+        "title": "Frutiger Aero Art",
+        "author": "Design Hero",
+        "color": "linear-gradient(135deg, #00bfff, #00008b)",
+        "id": 3
+    },
+    {
+        "title": "Space Odyssey",
+        "author": "Arthur Clarke",
+        "color": "linear-gradient(135deg, #4b0082, #000000)",
+        "id": 4
+    }
+]
