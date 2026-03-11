@@ -1,23 +1,53 @@
 [
-    {
-        "id": 1,
-        "title": "Мастер и Маргарита",
-        "author": "М. Булгаков",
-        "color": "linear-gradient(135deg, #800000, #330000)",
-        "pages": [
-            "Однажды весною, в час небывало жаркого заката, в Москве, на Патриарших прудах, появились два гражданина.Первый из них, одетый в летнюю серенькую пару, был маленького роста, упитан, побрит, в приличных роговых очках...",
-            "Второй — плечистый, рыжеватый, вихрастый молодой человек в заломленной на затылок клетчатой кепке — был в ковбойке, жеваных белых брюках и в черных тапочках.",
-            "Попав в тень чуть зеленеющих лип, писатели первым делом бросились к пестро раскрашенной будочке с надписью «Пиво и воды»."
-        
-    },
-    {
-        "id": 2,
-        "title": "Frutiger Aero Art",
-        "author": "Design Hero",
-        "color": "linear-gradient(135deg, #00bfff, #00008b)",
-        "pages": [
-            "Эпоха Frutiger Aero (2004-2013) характеризовалась обилием глянца, воды и скевоморфизма.",
-            "Это был оптимистичный взгляд на будущее технологий."
-        ]
-    }
+  {
+    "id": 1,
+    "title": "Мастер и Маргарита",
+    "author": "М. Булгаков",
+    "color": "linear-gradient(135deg, #800000, #330000)",
+    "pages": [
+      "Однажды весною, в час небывало жаркого заката, в Москве, на Патриарших прудах, появились два гражданина.\n\nПервый из них, одетый в летнюю серенькую пару, был маленького роста, упитан, побрит, в приличных роговых очках...",
+      "Второй — плечистый, рыжеватый, вихрастый молодой человек в заломленной на затылок клетчатой кепке — был в ковбойке, жеваных белых брюках и в черных тапочках.",
+      "Попав в тень чуть зеленеющих лип, писатели первым делом бросились к пестро раскрашенной будочке с надписью «Пиво и воды»."
+    ]
+  },
+  {
+    "id": 2,
+    "title": "Brave New World",
+    "author": "Aldous Huxley",
+    "color": "linear-gradient(135deg, #005f5f, #002222)",
+    "pages": [
+      "A squat grey building of only thirty-four stories. Over the main entrance the words, CENTRAL LONDON HATCHERY AND CONDITIONING CENTRE...",
+      "The enormous room on the ground floor faced towards the north. Cold for all the summer beyond the panes, for all the tropical heat of the room itself."
+    ]
+  },
+  {
+    "id": 3,
+    "title": "Frutiger Aero Art",
+    "author": "Design Hero",
+    "color": "linear-gradient(135deg, #00bfff, #00008b)",
+    "pages": [
+      "Эпоха Frutiger Aero (2004-2013) характеризовалась обилием глянца, воды и скевоморфизма.",
+      "Это был оптимистичный взгляд на будущее технологий, где интерфейсы выглядели как живые объекты."
+    ]
+  },
+  {
+    "id": 4,
+    "title": "Space Odyssey",
+    "author": "Arthur Clarke",
+    "color": "linear-gradient(135deg, #4b0082, #000000)",
+    "pages": [
+      "Behind every man now alive stand thirty ghosts, for that is the ratio by which the dead outnumber the living.",
+      "Since the beginning of time, roughly a hundred billion human beings have walked the planet Earth."
+    ]
+  },
+  {
+    "id": 5,
+    "title": "TestBook",
+    "author": "Yea",
+    "color": "linear-gradient(135deg, #4b0082, #000000)",
+    "pages": [
+      "Это тестовая страница номер один.",
+      "А это вторая страница нашего приложения iBooks Classic."
+    ]
+  }
 ]
